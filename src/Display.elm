@@ -10,6 +10,7 @@ import Graphics.Element exposing (..)
 import Model
 import Display.World exposing (ground)
 import Display.Crate exposing (crate)
+import Color exposing (..)
 
 view : (Int,Int) -> Model.Person -> Mat4
 view (w,h) person =
@@ -24,7 +25,7 @@ scene (w,h) isLocked texture person =
                  (if isLocked then exitMsg else enterMsg)
            ]
 
-entities : Response Texture -> Mat4 -> List Renderable
+entities : Response -> Mat4 -> List Renderable
 entities response view =
     let crates = case response of
                    Success texture ->
@@ -44,6 +45,6 @@ exitMsg = message "Press <escape> to exit full screen."
 
 message : String -> Element
 message msg =
-    plainText <|
+    show <|
     "This uses stuff that is only available in Chrome and Firefox!\n" ++
     "\nWASD keys to move, space bar to jump.\n\n" ++ msg
