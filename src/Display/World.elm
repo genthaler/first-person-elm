@@ -1,14 +1,14 @@
 module Display.World (ground) where
 
-import Math.Vector3 (..)
-import Math.Matrix4 (..)
-import Graphics.WebGL (..)
+import Math.Vector3 exposing (..)
+import Math.Matrix4 exposing (..)
+import WebGL exposing (..)
+import Color exposing (toRgb, hsl)
+type alias Vertex = { position:Vec3, color:Vec3 }
 
-type Vertex = { position:Vec3, color:Vec3 }
-
-ground : Mat4 -> Entity
+ground : Mat4 -> Renderable
 ground view =
-    entity vertexShader fragmentShader groundMesh { view=view }
+    render vertexShader fragmentShader groundMesh { view=view }
 
 
 -- Help create colors as Vectors
@@ -19,7 +19,7 @@ color hue saturation lightness =
 
 
 -- The mesh for the ground
-groundMesh : [Triangle Vertex]
+groundMesh : Drawable Vertex
 groundMesh =
   let green = color (degrees 110) 0.48
 
@@ -28,7 +28,7 @@ groundMesh =
       bottomLeft  = Vertex (vec3 -20 -1 -20) (green 0.5)
       bottomRight = Vertex (vec3  20 -1 -20) (green 0.6)
   in
-      [ (topLeft,topRight,bottomLeft), (bottomLeft,topRight,bottomRight) ]
+      Triangle [ (topLeft,topRight,bottomLeft), (bottomLeft,topRight,bottomRight) ]
 
 
 -- Shaders

@@ -1,6 +1,6 @@
 module Main where
 
-import Graphics.WebGL (..)
+import WebGL exposing (..)
 import Keyboard
 import Mouse
 import Window

@@ -1,14 +1,15 @@
 module Display (scene) where
 
-import Http (..)
-import Math.Vector2 (Vec2)
-import Math.Vector3 (..)
-import Math.Matrix4 (..)
-import Graphics.WebGL (..)
-
+import Http exposing (..)
+import Math.Vector2 exposing (Vec2)
+import Math.Vector3 exposing (..)
+import Math.Matrix4 exposing (..)
+import WebGL exposing (..)
+import Html exposing (..)
+import Graphics.Element exposing (..)
 import Model
-import Display.World (ground)
-import Display.Crate (crate)
+import Display.World exposing (ground)
+import Display.Crate exposing (crate)
 
 view : (Int,Int) -> Model.Person -> Mat4
 view (w,h) person =
@@ -23,7 +24,7 @@ scene (w,h) isLocked texture person =
                  (if isLocked then exitMsg else enterMsg)
            ]
 
-entities : Response Texture -> Mat4 -> [Entity]
+entities : Response Texture -> Mat4 -> List Renderable
 entities response view =
     let crates = case response of
                    Success texture ->
@@ -32,7 +33,7 @@ entities response view =
                        , crate texture (translate3 -10 0 -10 view)
                        ]
                    _ -> []
-    in  
+    in
         ground view :: crates
 
 enterMsg : Element
