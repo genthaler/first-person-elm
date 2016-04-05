@@ -17,7 +17,7 @@ view (w,h) person =
     mul (makePerspective 45 (toFloat w / toFloat h) 0.01 100)
         (makeLookAt person.position (person.position `add` Model.direction person) j)
 
-scene : (Int,Int) -> Bool -> Response Texture -> Model.Person -> Element
+scene : (Int,Int) -> Bool -> Maybe Texture -> Model.Person -> Element
 scene (w,h) isLocked texture person =
     layers [ color (rgb 135 206 235) (spacer w h)
            , webgl (w,h) (entities texture (view (w,h) person))
@@ -27,7 +27,7 @@ scene (w,h) isLocked texture person =
 
 entities : Response -> Mat4 -> List Renderable
 entities response view =
-    let crates = case response of
+    let crates = case response.status of
                    Success texture ->
                        [ crate texture view
                        , crate texture (translate3  10 0  10 view)
