@@ -1,12 +1,12 @@
-module Update (step) where
+module Update (update) where
 
 import Math.Vector3 exposing (..)
 import Math.Vector3 as V3
 import Math.Matrix4 exposing (..)
 import Model
 
-step : Model.Inputs -> Model.Person -> Model.Person
-step inputs person =
+update : Model.Inputs -> Model.Person -> Model.Person
+update inputs person =
     case inputs of
       Model.Mouse movement -> turn movement person
       Model.TimeDelta isJumping directions dt ->

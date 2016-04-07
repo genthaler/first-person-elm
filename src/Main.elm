@@ -1,13 +1,12 @@
 module Main where
 
-import WebGL exposing (..)
 import Keyboard
 import Mouse
 import Window
 
 import Model
 import Update
-import Display
+import View
 
 -- Pointer Lock information
 port movement : Signal (Int,Int)

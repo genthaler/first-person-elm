@@ -1,4 +1,4 @@
-module Display (scene) where
+module View (view) where
 
 import Http exposing (..)
 import Math.Vector2 exposing (Vec2)
@@ -8,8 +8,8 @@ import WebGL exposing (..)
 import Html exposing (..)
 import Graphics.Element exposing (..)
 import Model
-import Display.World exposing (ground)
-import Display.Crate exposing (crate)
+import View.World exposing (world)
+import View.Crate exposing (crate)
 import Color exposing (..)
 
 view : (Int,Int) -> Model.Person -> Mat4

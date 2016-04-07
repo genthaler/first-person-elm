@@ -1,4 +1,4 @@
-module Display.Crate (crate) where
+module View.Crate (crate) where
 
 import Math.Vector2 exposing (Vec2)
 import Math.Vector3 exposing (..)
@@ -14,11 +14,9 @@ type alias Vertex =
     , coord : Vec3
     }
 
-
 crate : Drawable Vertex
 crate =
   Triangle (List.concatMap rotatedFace [ (0,0), (90,0), (180,0), (270,0), (0,90), (0,-90) ])
-
 
 rotatedFace : (Float,Float) -> List (Vertex, Vertex, Vertex)
 rotatedFace (angleXZ,angleYZ) =
@@ -29,7 +27,6 @@ rotatedFace (angleXZ,angleYZ) =
     each f (a,b,c) = (f a, f b, f c)
   in
     List.map (each (\v -> {v | position = transform t v.position })) face
-
 
 face : List (Vertex, Vertex, Vertex)
 face =
@@ -42,7 +39,6 @@ face =
     [ (topLeft,topRight,bottomLeft)
     , (bottomLeft,topRight,bottomRight)
     ]
-
 
 -- Shaders
 
@@ -60,7 +56,6 @@ void main () {
 }
 
 |]
-
 
 fragmentShader : Shader {} { u | crate:Texture } { vcoord:Vec2 }
 fragmentShader = [glsl|

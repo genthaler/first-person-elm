@@ -1,4 +1,4 @@
-module Display.World (ground) where
+module View.World (ground) where
 
 import Math.Vector3 exposing (..)
 import Math.Matrix4 exposing (..)
@@ -6,8 +6,8 @@ import WebGL exposing (..)
 import Color exposing (toRgb, hsl)
 type alias Vertex = { position:Vec3, color:Vec3 }
 
-ground : Mat4 -> Renderable
-ground view =
+world : Mat4 -> Renderable
+world view =
     render vertexShader fragmentShader groundMesh { view=view }
 
 
